@@ -125,7 +125,18 @@ terraform destroy
 
 ### Week 2
 
+#### q3
+
 ![q3](./week2/homework/q3.png)
+
+#### q4
+
 ![q4](./week2/homework/q4.png)
+
+#### q5
+
 ![q5](./week2/homework/q5.png)
+
+#### q6
+
 ![q6](./week2/homework/q6.png)

@@ -222,3 +222,4 @@ taxi+_zone_lookup.csv
 green_tripdata_2019-10.csv
 green_tripdata_2019-10.csv.gz
 taxi_zone_lookup.csv
+yellow_tripdata_*

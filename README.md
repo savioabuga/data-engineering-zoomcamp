@@ -122,3 +122,6 @@ terraform init
 terraform apply -auto-approve
 terraform destroy
 ```
+
+### Week 2
+

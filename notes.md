@@ -1,5 +1,9 @@
 # Notes
 
+[Homework link](https://courses.datatalks.club/de-zoomcamp-2025/)
+[Taxi Data](https://github.com/DataTalksClub/nyc-tlc-data/releases/)
+
+
 ## Week1
 
 ```bash
@@ -190,3 +194,5 @@ pluginDefaults:
       username: kestra
       password: k3str4
 ```
+
+

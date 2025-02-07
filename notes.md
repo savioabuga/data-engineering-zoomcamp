@@ -3,7 +3,6 @@
 [Homework link](https://courses.datatalks.club/de-zoomcamp-2025/)
 [Taxi Data](https://github.com/DataTalksClub/nyc-tlc-data/releases/)
 
-
 ## Week1
 
 ```bash
@@ -195,4 +194,88 @@ pluginDefaults:
       password: k3str4
 ```
 
+## Week3
 
+### BigQuery
+
+Big query is a data warehouse solution offered by Google.
+A data warehouse consolidates data from disparate sources and performs analytics on the
+aggregated data to add value into the business operations by providing insights.
+
+#### BQ Architecture
+
+BQ is a serverless architecture that decouples storage and compute and allows them to scales independently on demand.
+
+##### Compute is Dremel, a large multi-tenant cluster that executes SQL queries
+
+- Dremel turns SQL queries into execution trees. The leaves of the tree are called *slots* and do the heavy lifting
+of reading data from storage and any necessary computation. The branches of the tree are `mixers`, which perform the
+aggregation.
+- Dremel dynamically apportions slots to queries on an as-needed basis, maintaining fairness for concurrent queries
+from multiple users. A single user can get thousands of slots to run their queries.
+
+##### Storage is Colossus, Google's global storage system
+
+- BQ leverages the columnar storage format and compression algorithm to store data in Colossus, optimized for reading
+large amounts of structured data.
+- Colossus also handles replication, recovery (when disks crash) and distributed management. Colossus allows BQ to scale
+to dozens of petabytes of data stored seamlessly, without paying the penalty of attaching much more expensive compute
+resources as in traditional data warehouses.
+
+##### Compute and storage talk to each other through petabit Jupiter network
+
+- In between storage and compute is `shuffle`, which takes advantage of Google's Jupiter network to move data extremely
+rapidly from one place to another.
+
+##### BQ is orchestrated via Borg, Google's precursor to Kubernetes
+
+- The mixers and slots are all run by Borg, which allocates hardware resources.
+
+### Clustering and partitioning
+
+Clustering
+
+- Cost benefit unknown
+- You need more granularity than partitioning alone allows
+- Your queries commonly use filters or aggregation against multiple particular columns
+- The cardinality of the number of values in a column or group of columns is large
+
+Partitioning
+
+- Cost known upfront
+- You need partition-level management
+- Filter or aggregate on single column
+
+### Clustering over partitioning
+
+- Partitioning results in a small amount of data per partition (approx less that 1GB)
+- Partitioning results in a large number of partitions beyond the limits on partitioned tables
+- Partitioning results in your mutation operations modifying the majority of partitions in the table
+ frequently (for example, every few minutes).
+
+### Automatic reclustering
+
+As data is added to a clustered table:
+
+- the newly inserted data can be written to blocks that contain key ranges that overlap
+that overlap with with the key ranges in previously written blocks.
+- These overlapping keys weaken the sort property of the table.
+
+To maintain the performance characteristics of a clustered table:
+
+- BQ performs automatic re-clustering in the background to restore the sort property of the table
+- For partitioned tables, clustering is maintained for data withing the scope of each partition.
+
+### BQ Best Practices
+
+Cost reduction:
+
+- Avoid `SELECT *`
+- Price your queries before running them
+- Use clustered or partitioned tables
+- Use streaming inserts with caution
+- Materialize query results in stages
+
+### References
+
+- [Google Blog -Bigquery Explained](https://cloud.google.com/blog/products/data-analytics/new-blog-series-bigquery-explained-overview)

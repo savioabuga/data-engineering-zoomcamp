@@ -140,3 +140,63 @@ terraform destroy
 #### q6
 
 ![q6](./week2/homework/q6.png)
+
+### Week 3
+
+#### Question 1
+
+```sql
+select count(1) from `dezoomcamp_hw3.external_yellow_tripdata`;
+```
+
+![q1](./week3/homework/q1.png)
+
+#### Question 2
+
+```sql
+select count(distinct(PULocationID)) from `dezoomcamp_hw3.external_yellow_tripdata`;
+select count(distinct(PULocationID)) from `dezoomcamp_hw3.yellow_tripdata_non_partitioned`; -- 155.2 MBs
+```
+
+![q2](./week3/homework/q2.png)
+
+#### Question 3
+
+```sql
+select PULocationID,  from `dezoomcamp_hw3.yellow_tripdata_non_partitioned`;
+select PULocationID, DOLocationID from `dezoomcamp_hw3.yellow_tripdata_non_partitioned`;
+```
+
+![q3a](./week3/homework/q3a.png)
+![q3b](./week3/homework/q3b.png)
+
+#### Question 4
+
+```sql
+select count(1) from `dezoomcamp_hw3.yellow_tripdata_non_partitioned` where fare_amount = 0;
+```
+
+![q4](./week3/homework/q4.png)
+
+#### Question 5
+
+```sql
+CREATE OR REPLACE TABLE dezoomcamp_hw3.yellow_tripdata_partitioned
+PARTITION BY
+  DATE(tpep_dropoff_datetime) 
+CLUSTER BY VendorID AS
+SELECT * FROM dezoomcamp_hw3.external_yellow_tripdata;
+```
+
+![q5](./week3/homework/q5.png)
+
+#### Question 6
+
+```sql
+SELECT DISTINCT(VendorId) FROM `dezoomcamp_hw3.yellow_tripdata_non_partitioned` WHERE DATE(tpep_dropoff_datetime) BETWEEN '2024-03-01' AND '2024-03-15'; -- ~301MBs
+SELECT DISTINCT(VendorId) FROM `dezoomcamp_hw3.yellow_tripdata_partitioned_clustered` WHERE DATE(tpep_dropoff_datetime) BETWEEN '2024-03-01' AND '2024-03-15'; -- 26MBs
+```
+
+![q6a](./week3/homework/q6a.png)
+
+![q6b](./week3/homework/q6b.png)

@@ -276,6 +276,37 @@ Cost reduction:
 - Use streaming inserts with caution
 - Materialize query results in stages
 
+
+
+```sql
+CREATE EXTERNAL TABLE `your_dataset.your_table_name` 
+
+  OPTIONS (
+
+    format = 'PARQUET',
+
+    uris = ['gs://your-bucket/parquet-files/*.parquet']
+
+  )
+```
+
+```sql
+CREATE EXTERNAL TABLE `dezoomcamp_hw3.external_yellow_tripdata` 
+
+  OPTIONS (
+
+    format = 'PARQUET',
+
+    uris = ['gs://latin_b62d4_dezoomcamp_hw3_2025/*.parquet']
+
+  );
+
+
+CREATE OR REPLACE TABLE de-homework-wk3.yellow_tripdata_non_partitioned AS
+SELECT * FROM de-homework-wk3.external_yellow_tripdata;
+
+```
+
 ### References
 
 - [Google Blog -Bigquery Explained](https://cloud.google.com/blog/products/data-analytics/new-blog-series-bigquery-explained-overview)

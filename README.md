@@ -200,3 +200,21 @@ SELECT DISTINCT(VendorId) FROM `dezoomcamp_hw3.yellow_tripdata_partitioned_clust
 ![q6a](./week3/homework/q6a.png)
 
 ![q6b](./week3/homework/q6b.png)
+
+### DLT Workshop
+
+#### DLT Question 1
+
+![q1](./workshops/homework/q1.png)
+
+#### DLT Question 2
+
+![q2](./workshops/homework/q2.png)
+
+#### DLT Question 3
+
+![q3](./workshops/homework/q3.png)
+
+#### DLT Question 4
+
+![q4](./workshops/homework/q4.png)
